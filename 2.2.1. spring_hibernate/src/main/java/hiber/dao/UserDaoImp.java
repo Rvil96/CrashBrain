@@ -33,7 +33,7 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public User getUserByCar(Car car) {
-        String hql = "select c.user from Car c where c.model = :model and c.series = :series";
+        String hql = "from Car c left join fetch c.user where c.model = :model and c.series = :series";
 
         Session session = sessionFactory.openSession();
         Query query = session.createQuery(hql);
@@ -41,7 +41,8 @@ public class UserDaoImp implements UserDao {
         query.setParameter("model", car.getModel());
         query.setParameter("series", car.getSeries());
 
-        return (User) query.uniqueResult();
+        Car resultCar = (Car) query.uniqueResult();
+        return resultCar.getUser();
     }
 
 }

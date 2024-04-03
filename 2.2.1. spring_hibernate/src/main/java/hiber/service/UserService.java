@@ -9,5 +9,5 @@ public interface UserService {
     void add(User user);
     List<User> listUsers();
 
-    public User getUserByCar(Car car);
+    User getUserByCar(Car car);
 }
